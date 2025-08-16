@@ -1,0 +1,68 @@
+import colectivo.*
+describe "Pruebas para el colectivo" {
+
+
+  test "El colectivo sube pasajeros correctamente" {
+    const parada = new Parada(cantPersonasSuben = 5)
+    const ruta = new Ruta(paradas = [parada])
+    const colectivo = new Colectivo(paradaActual = 0, pasajeros = 0, combustibleActual = 15)
+
+
+    colectivo.avanzar(ruta)
+
+
+    assert.equals(5, colectivo.pasajeros())
+  }
+
+
+  test "El colectivo consume combustible segun pasajeros" {
+    const parada = new Parada(cantPersonasSuben = 3)
+    const ruta = new Ruta(paradas = [parada, parada])
+    const colectivo = new Colectivo(paradaActual = 0, pasajeros = 0, combustibleActual = 15)
+
+
+    colectivo.avanzar(ruta)
+
+
+    assert.equals(13.7, colectivo.combustibleActual())
+  }
+
+
+  test "El colectivo cambia de sentido al llegar a terminal" {
+    const parada = new Parada(cantPersonasSuben = 2)
+    const ruta = new Ruta(paradas = [parada])
+    const colectivo = new Colectivo(paradaActual = 0, sentidoViaje = 1, pasajeros = 0, combustibleActual = 15)
+
+
+    colectivo.avanzar(ruta)
+
+
+    assert.equals(0, colectivo.pasajeros())
+    assert.equals(15, colectivo.combustibleActual())
+    assert.equals(-1, colectivo.sentidoViaje())
+  }
+
+
+  test "El colectivo no avanza sin combustible suficiente" {
+    const parada = new Parada(cantPersonasSuben = 2)
+    const ruta = new Ruta(paradas = [parada, parada])
+    const colectivo = new Colectivo(pasajeros = 10, combustibleActual = 0.5)
+
+
+    colectivo.avanzar(ruta)
+
+
+    assert.equals(0, colectivo.paradaActual())  
+  }
+  test "El colectivo no suma pasajeros negativos" {
+    const paradaNegativa = new Parada(cantPersonasSuben = -5)
+    const ruta = new Ruta(paradas = [paradaNegativa])
+    const colectivo = new Colectivo(pasajeros = 10, combustibleActual = 15)
+
+
+    colectivo.avanzar(ruta)
+
+
+    assert.equals(10, colectivo.pasajeros())
+}
+}

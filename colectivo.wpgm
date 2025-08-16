@@ -1,0 +1,30 @@
+import colectivo.*
+
+program simuladorColectivo{
+const parada1 = new Parada()
+const parada2 = new Parada() 
+const parada3 = new Parada() 
+const parada4 = new Parada() 
+
+const ruta1 = new Ruta(paradas=[parada1, parada2, parada3, parada4])
+const colectivo = new Colectivo()
+colectivo.definirRuta(ruta1)
+
+console.println("Suben 10 pasajeros en la primera parada.")
+colectivo.subirPasajeros(10)
+
+console.println("Parada actual: " + colectivo.obtenerParadaActual())
+console.println("Pasajeros a bordo: " + colectivo.cantidadPasajeros())
+console.println("Consumo actual: " + colectivo.consumo())
+
+if (colectivo.puedeAvanzar()) {
+      console.println("El colectivo puede avanzar. Avanzando...")
+      colectivo.avanzar()
+   } else {
+      console.println("El colectivo NO puede avanzar.")
+   }
+
+console.println("Parada actual: " + colectivo.obtenerParadaActual())
+console.println("Pasajeros a bordo: " + colectivo.cantidadPasajeros())
+console.println("Consumo actual: " + colectivo.consumo())
+}
