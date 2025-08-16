@@ -66,5 +66,3 @@ class Ruta {
         return paradas
     }
 }
-
-hola soy agus y mia
